@@ -2,7 +2,8 @@ import './App.css';
 import { useEffect ,useState } from 'react';
 import "./database/database.js";
 import './Connectie.js';
-import { getDocs, collection, doc } from 'firebase/firestore'
+import { getDocs, collection, doc } from 'firebase/firestore';
+import { db } from 'firebase/firestore';
 
 function App() {
 
