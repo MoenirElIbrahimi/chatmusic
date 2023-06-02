@@ -4,6 +4,7 @@ import { getDocs, collection } from 'firebase/firestore';
 import './Connectie.js'; // Make sure this file exports the necessary connection to Firestore
 import { db } from './Connectie.js';
 
+
 function App() {
   const [getUsersList, setUsersList] = useState([]);
   const UsersCollectionRef = collection(db, "Users");
