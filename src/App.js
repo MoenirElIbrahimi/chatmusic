@@ -2,12 +2,12 @@ import './App.css';
 import { useEffect ,useState } from 'react';
 import { getDocs, collection } from 'firebase/firestore';
 import './Connectie.js'; // Make sure this file exports the necessary connection to Firestore
-import { db } from './Connectie.js';
+import { db2 } from './Connectie.js';
 
 
 function App() {
   const [getUsersList, setUsersList] = useState([]);
-  const UsersCollectionRef = collection(db, "Users");
+  const UsersCollectionRef = collection(db2, "Users");
 
   useEffect(() => {
     const getUsersList = async () => {
