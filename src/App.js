@@ -7,6 +7,7 @@ import { db } from './Connectie.js';
 function App() {
   const [getUsersList, setUsersList] = useState([]);
   const UsersCollectionRef = collection(db, "Users");
+  const name = [];
 
   useEffect(() => {
     const getUsersList = async () => {
@@ -14,16 +15,16 @@ function App() {
       setUsersList(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
     };
     getUsersList();
-  }, []);
+  }, [])
+  
   getUsersList.forEach((el)=>{
-      console.log(el)
+      name.push(<h3 className='Username'>{el.Username}</h3>)
   })
 
-
- console.log(  );
+ console.log(name)
   return (
     <div className="App">
-      { UsersCollectionRef.type }
+      { name }
     </div>
   );
 }
