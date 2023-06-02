@@ -1,26 +1,30 @@
 import './App.css';
 import { useEffect ,useState } from 'react';
-import "./database/database.js";
-import './Connectie.js';
-import { getDocs, collection, doc } from 'firebase/firestore';
-import { db } from 'firebase/firestore';
+import { getDocs, collection } from 'firebase/firestore';
+import './Connectie.js'; // Make sure this file exports the necessary connection to Firestore
+import { db } from './Connectie.js';
+
 
 function App() {
-
   const [getUsersList, setUsersList] = useState([]);
-  const jobCollectionRef = collection(db, "Users");
+  const UsersCollectionRef = collection(db, "Users");
 
-  useEffect(()=>{
-    const getUsers = async () => {
-      const data = await getDocs(jobCollectionRef);
+  useEffect(() => {
+    const getUsersList = async () => {
+      const data = await getDocs(UsersCollectionRef);
       setUsersList(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
-    }
-    getUsers();
-  },[])
+    };
+    getUsersList();
+  }, []);
+  getUsersList.forEach((el)=>{
+      console.log(el)
+  })
 
+
+ console.log(  );
   return (
     <div className="App">
-     
+      { UsersCollectionRef.type }
     </div>
   );
 }

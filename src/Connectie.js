@@ -1,5 +1,6 @@
-import {getDocs, collection, doc} from 'firebase/firestore'
+import {getDocs, collection, doc, getFirestore} from 'firebase/firestore'
 import {db } from 'firebase-config';
+
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
@@ -20,4 +21,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+
+
+export const db = getFirestore(app);
