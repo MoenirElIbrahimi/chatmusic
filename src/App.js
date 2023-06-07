@@ -1,37 +1,31 @@
-import logo from './logo.svg';
 import './App.css';
-import { useState } from 'react';
-import "./database/database.js"
+import { useEffect ,useState } from 'react';
+import { getDocs, collection } from 'firebase/firestore';
+import './Connectie.js'; // Make sure this file exports the necessary connection to Firestore
+import { db } from './Connectie.js';
+
 
 function App() {
+  const [getUsersList, setUsersList] = useState([]);
+  const UsersCollectionRef = collection(db, "Users");
+  const name = [];
 
-  const [getTaskList, setTaskList] = useState([]);
-  const jobCollectionRef = collection(db, "task");
+  useEffect(() => {
+    const getUsersList = async () => {
+      const data = await getDocs(UsersCollectionRef);
+      setUsersList(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
+    };
+    getUsersList();
+  }, [])
+  
+  getUsersList.forEach((el)=>{
+      name.push(<h3 className='Username'>{el.Username}</h3>)
+  })
 
-  useEffect(()=>{
-    const getTasks = async () => {
-      const data = await getDocs(jobCollectionRef);
-      setTaskList(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
-    }
-    getTasks();
-  },[])
-
+ console.log(name)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn 
-        </a>
-      </header>
+      { name }
     </div>
   );
 }
