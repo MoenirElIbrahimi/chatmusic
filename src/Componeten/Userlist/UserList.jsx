@@ -1,17 +1,25 @@
 
 import { useEffect ,useState } from 'react';
-import { getDocs, collection } from 'firebase/firestore';
+import { Doc, getDoc, addDoc, getDocs, collection } from 'firebase/firestore';
 import '../../Connectie.js'; // Make sure this file exports the necessary connection to Firestore
-import { db } from '../../Connectie.js';
+import { db2 } from '../../Connectie.js';
 import './UserList.css';
 
 
-
-
+function handleClick(friendUid, CurrentUserUid) {
+  const createJob = async () =>{
+    await addDoc(friends, 
+      {
+        user1: friendUid,
+        user2: CurrentUserUid
+      });
+      navigate('/')
+  }
+}
 
 function UserList() {
   const [getUsersList, setUsersList] = useState([]);
-  const UsersCollectionRef = collection(db, "Users");
+  const UsersCollectionRef = collection(db2, "Users");
   const user = [];
 
 
@@ -29,7 +37,7 @@ function UserList() {
   getUsersList.forEach((data)=>{
       user.push(<h3 className='Username'>Gebruiker: {data.Username}</h3>)
       user.push(<h3 className='Username'>Wachtwoord: {data.Password}</h3>)
-      user.push(<button key={data.id}> Send Friendship </button>)
+      user.push(<button onClick={handleClick()} key={data.id}> Send Friendship </button>)
 
   })
 
