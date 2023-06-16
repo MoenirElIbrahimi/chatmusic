@@ -27,9 +27,9 @@ function UserList() {
 
   
   getUsersList.forEach((data)=>{
-      user.push(<h3 className='Username'>{data.Username}</h3>)
+      user.push(<h3 className='Username'>Gebruiker: {data.Username}</h3>)
+      user.push(<h3 className='Username'>Wachtwoord: {data.Password}</h3>)
       user.push(<button key={data.id}> Send Friendship </button>)
-      user.push(<h3 className='Username'>{data.Password}</h3>)
 
   })
 
