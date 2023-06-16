@@ -1,8 +1,9 @@
 
 import { useEffect ,useState } from 'react';
 import { getDocs, collection } from 'firebase/firestore';
-import '../Connectie.js'; // Make sure this file exports the necessary connection to Firestore
-import { db } from '../Connectie.js';
+import '../../Connectie.js'; // Make sure this file exports the necessary connection to Firestore
+import { db } from '../../Connectie.js';
+import './UserList.css';
 
 
 
@@ -11,7 +12,8 @@ import { db } from '../Connectie.js';
 function UserList() {
   const [getUsersList, setUsersList] = useState([]);
   const UsersCollectionRef = collection(db, "Users");
-  const name = [];
+  const user = [];
+
 
   useEffect(() => {
     const getUsersList = async () => {
@@ -22,6 +24,25 @@ function UserList() {
   }, [])
 
   
+
+  
+  getUsersList.forEach((data)=>{
+      user.push(<h3 className='Username'>Gebruiker: {data.Username}</h3>)
+      user.push(<h3 className='Username'>Wachtwoord: {data.Password}</h3>)
+      user.push(<button key={data.id}> Send Friendship </button>)
+
+  })
+
+ 
+  return (
+    <div className="UserList">
+      { user }
+    </div>
+  );
+}
+
+export default UserList;
+
 // const [getTitle, setTitle] = useState("");
 // const [getTask, setTask] = useState("");
 // const [getStatus, setStatus] = useState("");
@@ -37,17 +58,3 @@ function UserList() {
 //         });
 //         return createjob;
 // }
-  
-  getUsersList.forEach((el)=>{
-      name.push(<h3 className='Username'>{el.Username}</h3>)
-  })
-
- console.log(name)
-  return (
-    <div className="UserList">
-      { name }
-    </div>
-  );
-}
-
-export default UserList;
