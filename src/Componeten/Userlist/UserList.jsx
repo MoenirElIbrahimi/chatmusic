@@ -1,8 +1,8 @@
 
 import { useEffect ,useState } from 'react';
 import { Doc, getDoc, addDoc, getDocs, collection } from 'firebase/firestore';
-import '../../Connectie.js'; // Make sure this file exports the necessary connection to Firestore
-import { db2 } from '../../Connectie.js';
+import '../../Connectie.js';
+import { db } from '../../Connectie.js';
 import './UserList.css';
 
 
@@ -19,7 +19,7 @@ function handleClick(friendUid, CurrentUserUid) {
 
 function UserList() {
   const [getUsersList, setUsersList] = useState([]);
-  const UsersCollectionRef = collection(db2, "Users");
+  const UsersCollectionRef = collection(db, "Users");
   const user = [];
 
 

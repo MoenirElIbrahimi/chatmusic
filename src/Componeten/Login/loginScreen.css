@@ -1,0 +1,11 @@
+.login-wrapper {
+    display: flex;
+    width: 50%;
+    align-items: center;
+    height: 500px;
+    justify-content: center;
+    background-position: center;
+    padding: 30px;
+    background-color: blue;
+  }
+  
