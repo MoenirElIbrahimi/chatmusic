@@ -1,7 +1,7 @@
 
 import { useEffect ,useState } from 'react';
 import { getDocs, collection } from 'firebase/firestore';
-import '../../Connectie.js'; // Make sure this file exports the necessary connection to Firestore
+import '../../Connectie.js'; 
 import { db } from '../../Connectie.js';
 import './UserList.css';
 

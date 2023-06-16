@@ -1,15 +1,14 @@
-import './App.css';
-import LoginScreen from './Componeten/Login/LoginScreen';
-import UserList from './Componeten/Userlist/UserList.jsx';
+import { useState } from "react";
+import LoginScreen from "./Componeten/Login/LoginScreen.jsx";
+import UserList from "./Componeten/Userlist/UserList";
 
-function App(){
-  return(
-        <div className ="App">
-    <UserList></UserList>
-    <LoginScreen></LoginScreen>
+function App() {
+  return (
+    <div>
+      <LoginScreen />
+      <UserList />
     </div>
   );
+}
 
-  }
-
-  export default App;
+export default App;

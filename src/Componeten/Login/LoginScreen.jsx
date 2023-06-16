@@ -1,54 +1,100 @@
-import React from 'react';
+import { useState } from "react";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut,
+} from "firebase/auth";
+import "./loginScreen.css";
+import { auth } from "../../Connectie.js";
 
-import PropTypes from 'prop-types';
-import { useEffect, useState } from 'react';
+function LoginScreen() {
+  const [registerEmail, setRegisterEmail] = useState("");
+  const [registerPassword, setRegisterPassword] = useState("");
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
 
-function Login() {
-
-  const [token, setToken] = useState();
-  const [username, setUsername] = useState();
-  const [password, setPassword] = useState();
+  const [user, setUser] = useState({});
 
 
-  async function loginUser(cred) {
-    return fetch ('http://localhost:3000/login', {
-      method: 'POST',
-      headers:{
-        'content-Type': 'application/json'
-      },
-      body: JSON.stringify(cred)
-    })
-    .then(data => data.json())
-  }
 
-  const handleSubmit = async e => {
-    e.preventDefault();
-    const token = await loginUser({
-      username,
-      password
-    })
-    setToken(token);
-  }
-  return(
-    <div className="login-wrapper">
-      <h1>Please Log In</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          <p>Username</p>
-          <input type="text" onChange={e => setUsername(e.target.value)}/>
-        </label>
-        <label>
-          <p>Password</p>
-          <input type="password"  onChange={e => setPassword(e.target.value)}/>
-        </label>
-        <div>
-          <button type="submit">Submit</button>
-        </div>
-      </form>
+  const register = async () => {
+    try {
+      const user = await createUserWithEmailAndPassword(
+        auth,
+        registerEmail,
+        registerPassword
+      );
+      console.log(user);
+    } catch (error) {
+      console.log(error.message);
+    }
+    onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+  };
+
+  const login = async () => {
+    try {
+      const user = await signInWithEmailAndPassword(
+        auth,
+        loginEmail,
+        loginPassword
+      );
+      console.log(user);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
+  const logout = async () => {
+    await signOut(auth);
+  };
+
+  return (
+    <div className="App">
+      <div>
+        <h3> Register User </h3>
+        <input
+          placeholder="Email..."
+          onChange={(event) => {
+            setRegisterEmail(event.target.value);
+          }}
+        />
+        <input
+          placeholder="Password..."
+          onChange={(event) => {
+            setRegisterPassword(event.target.value);
+          }}
+        />
+
+        <button onClick={register}> Create User</button>
+      </div>
+
+      <div>
+        <h3> Login </h3>
+        <input
+          placeholder="Email..."
+          onChange={(event) => {
+            setLoginEmail(event.target.value);
+          }}
+        />
+        <input
+          placeholder="Password..."
+          onChange={(event) => {
+            setLoginPassword(event.target.value);
+          }}
+        />
+
+        <button onClick={login}> Login</button>
+      </div>
+
+      <h4> User Logged In: </h4>
+      {user?.email}
+
+      <button onClick={logout}> Sign Out </button>
     </div>
-  )
+  );
 }
 
-
-
-export default Login;
+export default LoginScreen;
