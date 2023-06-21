@@ -1,12 +1,13 @@
 import { useState } from "react";
 import LoginScreen from "./Componeten/Login/LoginScreen.jsx";
-import UserList from "./Componeten/Userlist/UserList";
+// import UserList from "./Componeten/Userlist/UserList";
 
 function App() {
   return (
-    <div>
+    <div className="App">
       <LoginScreen />
-      <UserList />
+      <input type="text" placeholder='Voer een gebruiker in'/>
+
     </div>
   );
 }
