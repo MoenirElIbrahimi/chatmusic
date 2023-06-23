@@ -6,17 +6,17 @@ import {
   signOut,
 } from "firebase/auth";
 import "./loginScreen.css";
-import { auth } from "../../Connectie.js";
+import { db, auth } from "../../Connectie.js";
+
 
 function LoginScreen() {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  
 
   const [user, setUser] = useState({});
-
-
 
   const register = async () => {
     try {
